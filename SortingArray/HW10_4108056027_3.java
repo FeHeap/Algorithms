@@ -13,7 +13,7 @@ public class HW10_4108056027_3 extends SortingArray{
                 break;
             }
         }
-        if(flag)
+        if(flag && arrayLength > 37)
             quickSort(A_toSort, 0, arrayLength-1);
         else{
             S_shellSort(A_toSort);
