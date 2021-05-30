@@ -1,4 +1,4 @@
-public class HW10_4108056027_1 extends SortingArray{
+public class HW10_4108056027_4 extends SortingArray{
     
     int arrayLength;
     final int[] step = {23,8,1}; //Sedgewick, 1982
@@ -6,7 +6,8 @@ public class HW10_4108056027_1 extends SortingArray{
     public int[] sorting(int[] A_toSort){
         arrayLength = A_toSort.length;
         boolean flag = false;
-        for(int i = 20;i < arrayLength;i+=20){
+        int maybe = arrayLength*3/4;
+        for(int i = 20;i < maybe;i+=20){
             if(A_toSort[i-20] < A_toSort[i]){
                 flag = true;
                 break;
