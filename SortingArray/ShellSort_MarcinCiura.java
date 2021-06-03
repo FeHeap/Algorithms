@@ -1,4 +1,4 @@
-public class HW10_4108056027_2 extends SortingArray{
+public class ShellSort_MarcinCiura extends SortingArray{
     
     int arrayLength;
     final int[] MarcinCiura = {1750, 701, 301, 132, 57, 23, 10, 4, 1};
