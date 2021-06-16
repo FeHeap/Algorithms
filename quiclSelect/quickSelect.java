@@ -1,6 +1,6 @@
 public class quickSelect {
     public static void main(String[] args) {
-        int[] array = {0,2,1,7,4,3,2,5,6,3,-1,-2,0,4,4,4};
+        int[] array = {0,2,1,7,4,3,2,5,6,3,-1,-2,0,4,4,4,7,1,5,2,-6,9};
         quickSelect select = new quickSelect();
         int value = select.Median(array);
         System.out.println("Median of array is "+ value);
@@ -13,13 +13,20 @@ public class quickSelect {
         return select(ArrayBuf, (ArrayBuf.length-1)/2);
     }
 
+    final int CUTOFF = 36;
     private int select(int[] array,int indexToFind){
         int head = 0,tail = array.length-1;
         
-        swap(array,head,merelyMedianOf(array));
-
         for(int indexBuf = 0;indexBuf != indexToFind;){
-            indexBuf = partition(array,head,tail);
+            if(tail-head > CUTOFF){
+                swap(array,head,merelyMedianOf(array,head,tail));
+                indexBuf = partition(array,head,tail);
+            }
+            else{
+                shellSort(array,head,tail);
+                indexBuf = indexToFind;
+            }
+
             if(indexBuf > indexToFind){
                 tail = indexBuf-1;
             }
@@ -29,6 +36,7 @@ public class quickSelect {
         }
         return array[indexToFind];
     }
+
     private int partition(int[] array, int head, int tail)
     {
         int i = head+1, j = tail;
@@ -51,10 +59,11 @@ public class quickSelect {
 
         return i-1;
     }
-    
-    private int merelyMedianOf(int[] array){
-        int Length = array.length;
-        int[] indexs = {0, Length/10, Length*2/10, Length*3/10, Length*4/10, Length*5/10, Length*6/10, Length*7/10, Length*8/10, Length*9/10, Length-1};
+     
+    private int merelyMedianOf(int[] array, int head, int tail){
+        int Length = tail - head;
+        int[] indexs = {head, head + Length/10, head + Length*2/10, head + Length*3/10, head + Length*4/10,
+                        head + Length*5/10, head + Length*6/10, head + Length*7/10, head + Length*8/10, head + Length*9/10, tail};
         for(int i = 1;i < indexs.length;i++){
             for(int j = i; j > 0 && array[indexs[j]] < array[indexs[j-1]]; j--)
                 swap(indexs, j, j-1);
@@ -63,6 +72,28 @@ public class quickSelect {
         
         return mid;
     }
+
+    final int[] step = {23,8,1}; //Sedgewick, 1982
+    private void shellSort(int[] A_toSort,int head,int tail){
+
+        int gap,point;
+        for(int i = 0;i < step.length;i++){
+            gap = step[i];
+            for(int j = head + gap;j <= tail;j++){
+                if(A_toSort[j] < A_toSort[j-gap]){
+                    for(point = j;point >= gap;point -= gap){
+                        if(A_toSort[point] < A_toSort[point-gap]){
+                            swap(A_toSort, point, point - gap);
+                        }
+                        else{
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     private void swap(int[] array,int indexA,int indexB){
         int temp = array[indexA];
         array[indexA] = array[indexB];
