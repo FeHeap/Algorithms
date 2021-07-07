@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class quickSelect {
     public static void main(String[] args) {
         int[] array = {0,2,1,7,4,3,2,5,6,3,-1,-2,0,4,4,4,7,1,5,2,-6,9};
@@ -9,7 +11,11 @@ public class quickSelect {
     public int Median(int[] array){
         int[] ArrayBuf = new int[array.length];
         System.arraycopy(array, 0, ArrayBuf, 0, array.length);
-
+        if(array.length >= CUTOFF * 12){
+            if(linear(array)){
+                shuffle(ArrayBuf);
+            }
+        }
         return select(ArrayBuf, (ArrayBuf.length-1)/2);
     }
 
@@ -40,12 +46,11 @@ public class quickSelect {
     private int partition(int[] array, int head, int tail)
     {
         int i = head+1, j = tail;
-        while(i < j){
+        while(i <= j){
 
             while(array[i] < array[head]){
                 if(++i > j) break;
             }
-            
             
             while(array[j] > array[head]){
                 if(i > --j) break;
@@ -98,5 +103,34 @@ public class quickSelect {
         int temp = array[indexA];
         array[indexA] = array[indexB];
         array[indexB] = temp;
+    }
+
+    private void shuffle(int[] array){
+        Random rand = new Random();
+        for(int range = array.length,indexBuf; range > 0;){
+            indexBuf = rand.nextInt(range--);
+            swap(array, range, indexBuf);
+        }
+    }
+
+    boolean linear(int[] array){
+        int units = (array.length/CUTOFF) - 1;
+        int increase = 0, decrease = 0;
+        for(int i = 2 + CUTOFF; i < array.length; i += CUTOFF){
+            if(array[i-2] >= array[i-1] && array[i-1] >= array[i] && array[i-CUTOFF] >= array[i-2]){
+                decrease++;
+            }
+            if(array[i-2] <= array[i-1] && array[i-1] <= array[i] && array[i-CUTOFF] <= array[i-2]){
+                increase++;
+            }
+        }
+
+        if(increase >= units*9/10 || decrease >= units*9/10){
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
 }
