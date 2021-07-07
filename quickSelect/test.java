@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 
-public class HW10_test{
+public class test{
     public static void main(String[] args) {
 		int InputDataSize = 20000;
         int RuningTimes = 10000;
@@ -34,19 +34,9 @@ public class HW10_test{
             quickSelect test = new quickSelect();
 
             System.out.println(i+1 + " " + test.Median(ex));
-
-
-            //System.out.println(i+1 +" OK ");
         }
 
         System.out.println("time:"+(System.nanoTime()-time_start)/RuningTimes);
     }
-	public static boolean check(int[] a)
-    {
-        int len=a.length;
-        for(int i=1;i<len;i++)
-            if(a[i-1]>a[i])
-                return false;
-        return true;
-    }
+
 }

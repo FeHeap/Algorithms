@@ -105,7 +105,7 @@ public class quickSelect {
         array[indexB] = temp;
     }
 
-    private void shuffle(int[] array){
+    private void shuffle(int[] array){ ////Knuth shuffle
         Random rand = new Random();
         for(int range = array.length,indexBuf; range > 0;){
             indexBuf = rand.nextInt(range--);
@@ -113,7 +113,7 @@ public class quickSelect {
         }
     }
 
-    boolean linear(int[] array){
+    private boolean linear(int[] array){
         int units = (array.length/CUTOFF) - 1;
         int increase = 0, decrease = 0;
         for(int i = 2 + CUTOFF; i < array.length; i += CUTOFF){
