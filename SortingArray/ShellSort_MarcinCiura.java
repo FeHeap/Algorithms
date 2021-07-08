@@ -1,21 +1,27 @@
 public class ShellSort_MarcinCiura extends SortingArray{
     
-    int arrayLength;
-    final int[] MarcinCiura = {1750, 701, 301, 132, 57, 23, 10, 4, 1};
+    private int arrayLength;
+    private final int[] MarcinCiura = {1750, 701, 301, 132, 57, 23, 10, 4, 1};
+
     public int[] sorting(int[] A_toSort){
+
         arrayLength = A_toSort.length;
+
+        int[] ArrayBuf = new int[arrayLength];
+
+        System.arraycopy(A_toSort, 0, ArrayBuf, 0, arrayLength);
         
-        shellSort(A_toSort);
+        shellSort(ArrayBuf);
 		
-        return A_toSort;
+        return ArrayBuf;
     }
-    public void swap(int[] A_toSort,int a,int b){
+    private void swap(int[] A_toSort,int a,int b){
         int temp = A_toSort[a];
         A_toSort[a] = A_toSort[b];
         A_toSort[b] = temp;
     }
     
-    public void shellSort(int[] A_toSort){
+    private void shellSort(int[] A_toSort){
         
         int upperBound = 9;
         
