@@ -1,5 +1,14 @@
 public class insertionSort_binary extends SortingArray{
 
+    public static void main(String[] args) {
+        SortingArray t = new heapSort();
+        int[] array = {0,-1,5,6,2,2,3,4,23,6,4,5,-1323,2,3256,1,-6561};
+        array = t.sorting(array);
+        for(int i = 0;i<array.length;i++){
+            System.out.print(array[i]+" ");
+        }
+    }
+
     public int[] sorting(int[] A_toSort){
         int[] ArrayBuf = new int[A_toSort.length];
         System.arraycopy(A_toSort, 0, ArrayBuf, 0, A_toSort.length);
@@ -32,9 +41,13 @@ public class insertionSort_binary extends SortingArray{
                     else if(array[mid] < array[i] && array[i] > array[mid+1]){
                         left = mid + 1;
                     }
+                    else if(array[mid] < array[i] && array[i] < array[mid+1]){
+                        mid = mid + 1;
+                        break;
+                    }
                 }
 
-                for(int j = 0;j > mid;j--){
+                for(int j = i;j > mid;j--){
                     swap(array, j, j-1);
                 }
             }
